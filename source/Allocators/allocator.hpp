@@ -4,7 +4,7 @@
 #include <limits>
 
 template<typename T>
-class allocator 
+class allocator final
 {
 public:
     using value_type = T;
@@ -17,24 +17,22 @@ public:
     using this_type = allocator<T>;
 
     allocator() = default;
-    
     ~allocator() = default;
 
-public:
     pointer allocate(size_t amount)
-    {
+    { 
         return static_cast<pointer>(::operator new(sizeof(T) * amount));
     }
 
-    void deallocate(pointer ptr, size_t capacity)
+    void deallocate(pointer ptr, size_t amount)
     {
         ::operator delete(ptr);
     }
 
-    template<typename U, typename... Types>
-    void construct(U* ptr, Types&&... args)
+    template<typename U, typename... Args>
+    void construct(U* ptr, Args&&... args)
     {
-        new (ptr) U(std::forward<Types>(args)...);
+        new (ptr) U(std::forward<Args>(args)...);
     }
 
     template<typename U>
@@ -43,13 +41,13 @@ public:
         ptr->~U();
     }
 
-    size_type max_size() const
+    size_t max_size() const
     {
         return std::numeric_limits<size_type>::max();
     }
-    
+
     template<typename U>
-    struct rebind 
+    struct rebind
     {
         using other = allocator<U>;
     };
