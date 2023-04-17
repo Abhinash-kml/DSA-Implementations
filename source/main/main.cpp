@@ -30,8 +30,9 @@ auto println = [](test* ptr) { std::cout << ptr->a << " " << ptr->b << " " << pt
 
 int main()
 {
-    vector<test> vec{5, test{10, 20, 30, 40}};
+    vector<test> vec(5, test{1, 2, 3, 4});
+    vector vec2{1, 2, 3, 4, 5};
 
-    for (size_t i = 0; i < vec.size(); ++i)
-        std::cout << vec[i].a << " " << vec[i].b << " " << vec[i].c << " " << vec[i].d << NL;
+    for (const auto& va : vec)
+        std::cout << va.a << " " << va.b << " " << va.c << " " << va.d << NL;
 }

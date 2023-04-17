@@ -21,8 +21,8 @@ public:
 
     vector() = default;
 
-    template<typename Type>
-    vector(size_t size, Type&& object = T{})
+    template<typename Type = T>
+    vector(size_t size, Type&& object = Type{})
         : m_size{ size }
         , m_capacity{ size }
         , m_elements{ m_allocator.allocate(size) }
@@ -177,6 +177,18 @@ public:
 
     size_t size() const { return m_size; }
     size_t capacity() const { return m_capacity; }
+
+    pointer begin() { return &m_elements[0]; }
+    const_pointer begin() const { return &m_elements[0]; }
+
+    pointer end() { return &m_elements[m_size]; }
+    const_pointer end() const { return &m_elements[m_size]; }
+
+    pointer rbegin() { return &m_elements[m_size - 1]; }
+    const_pointer rbegin() const { return &m_elements[m_size - 1]; }
+
+    pointer rend() { return &m_elements[-1]; }
+    const_pointer rend() const { return &m_elements[-1]; }
 
     reference operator[](size_t index)
     {
