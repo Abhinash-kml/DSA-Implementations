@@ -1,10 +1,7 @@
 #include <iostream>
-#include <vector>
-
 #include "../Allocators/allocator.hpp"
-#include "../Containers/array.hpp"
-#include "../SmartPointers/unique_ptr.hpp"
-#include "../SmartPointers/shared_ptr.hpp"
+
+#include "../Containers/vector.hpp"
 
 #define NL "\n"
 
@@ -17,6 +14,15 @@ struct test {
         , d{ d }
     { }
 
+    test(test&& o)
+        : a{ o.a }
+        , b{ o.b }
+        , c{ o.c }
+        , d{ o.d }
+    {
+        std::cout << "Moved" << NL;
+    }
+
     int a, b, c, d;
 };
 
@@ -24,8 +30,8 @@ auto println = [](test* ptr) { std::cout << ptr->a << " " << ptr->b << " " << pt
 
 int main()
 {
-    unique_ptr<int[]> ptr{new int[10]};
-    std::cout << ptr[4] << NL;
-    ptr[4] = 23532532;
-    std::cout << ptr[4] << NL;
+    vector<test> vec{5, test{10, 20, 30, 40}};
+
+    for (size_t i = 0; i < vec.size(); ++i)
+        std::cout << vec[i].a << " " << vec[i].b << " " << vec[i].c << " " << vec[i].d << NL;
 }
