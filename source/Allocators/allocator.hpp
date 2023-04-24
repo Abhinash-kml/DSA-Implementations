@@ -27,6 +27,7 @@ public:
     void deallocate(pointer ptr, size_t amount)
     {
         ::operator delete(ptr);
+        ptr = nullptr;
     }
 
     template<typename U, typename... Args>

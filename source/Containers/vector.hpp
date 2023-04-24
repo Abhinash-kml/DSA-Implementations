@@ -64,7 +64,7 @@ public:
         if (&other == this) return *this;
 
         vector<T> temp{other};
-        temp.swap(this);
+        temp.swap(*this);
 
         return *this;
     }

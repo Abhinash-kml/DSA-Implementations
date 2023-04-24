@@ -2,8 +2,29 @@
 #include "../Allocators/allocator.hpp"
 
 #include "../Containers/vector.hpp"
+#include "../Types/string.hpp"
+#include "../Types/string_view.hpp"
 
 #define NL "\n"
+
+using namespace std::string_literals;
+
+template<typename T, typename A>
+std::ostream& operator<<(std::ostream& out, const string<T, A>& str)
+{
+    for (size_t i = 0; i < str.size(); ++i)
+        out << str[i];
+    
+    return out;
+}
+
+std::ostream& operator<<(std::ostream& out, string_view& str)
+{
+    for (size_t i = 0; i < str.size(); ++i)
+        out << str[i];
+    
+    return out;
+}
 
 struct test {
     test() = default;
@@ -26,13 +47,12 @@ struct test {
     int a, b, c, d;
 };
 
-auto println = [](test* ptr) { std::cout << ptr->a << " " << ptr->b << " " << ptr->c << " " << ptr->d << NL; };
+auto print = [](string_view view) { std::cout << view << NL; };
 
 int main()
 {
-    vector<test> vec(5, test{1, 2, 3, 4});
-    vector vec2{1, 2, 3, 4, 5};
-
-    for (const auto& va : vec)
-        std::cout << va.a << " " << va.b << " " << va.c << " " << va.d << NL;
+    string a = "Awinash";
+    string_view view = "Hello World";
+    std::cout << view.size() << NL;
+    print(a);
 }
