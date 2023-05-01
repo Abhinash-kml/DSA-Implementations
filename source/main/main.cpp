@@ -1,9 +1,11 @@
-#include <iostream>
+#include <iosfwd>
+
 #include "../Allocators/allocator.hpp"
 
 #include "../Containers/vector.hpp"
 #include "../Types/string.hpp"
 #include "../Types/string_view.hpp"
+#include "../Containers/list.hpp"
 
 #define NL "\n"
 
@@ -48,11 +50,23 @@ struct test {
 };
 
 auto print = [](string_view view) { std::cout << view << NL; };
+auto println = [](const char* str) { 
+    std::cout << str << '\n';
+};
 
 int main()
 {
-    string a = "Awinash";
-    string_view view = "Hello World";
-    std::cout << view.size() << NL;
-    print(a);
+    List<int> list{};
+    list.insert(120)
+        .insert(240)
+        .insert(480)
+        .insert(240)
+        .insert(240)
+        .insert(240);
+
+    list.print();
+
+    list.erase(240, true)
+        .print();
+    list.search(120);
 }
