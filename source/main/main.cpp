@@ -54,19 +54,15 @@ auto println = [](const char* str) {
     std::cout << str << '\n';
 };
 
+template<typename T, typename... ArgTypes>
+void push_multiple(SinglyList<T>& list, ArgTypes&&... value)
+{
+    (list.PushBack(value), ...);
+}
+
 int main()
 {
-    List<int> list{};
-    list.insert(120)
-        .insert(240)
-        .insert(480)
-        .insert(240)
-        .insert(240)
-        .insert(240);
-
-    list.print();
-
-    list.erase(240, true)
-        .print();
-    list.search(120);
+    SinglyList<int> list{};
+    push_multiple(list, 1, 2, 3, 4, 5);
+    list.Print().ReverseWithStack().Print();
 }

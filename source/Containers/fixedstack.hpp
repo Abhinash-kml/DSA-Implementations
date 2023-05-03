@@ -59,7 +59,10 @@ public:
         return internal[index];
     }
 
+    reference top() { return internal[m_size - 1]; }
+
     size_t size() const { return m_size; }
+    bool empty() const { return m_size == 0; }
 
 private:
     T internal[N];
