@@ -5,7 +5,8 @@
 #include "../Containers/vector.hpp"
 #include "../Types/string.hpp"
 #include "../Types/string_view.hpp"
-#include "../Containers/list.hpp"
+//#include "../Containers/SinglyList.hpp"
+#include "../Containers/DoublyList.hpp"
 
 #define NL "\n"
 
@@ -55,14 +56,14 @@ auto println = [](const char* str) {
 };
 
 template<typename T, typename... ArgTypes>
-void push_multiple(SinglyList<T>& list, ArgTypes&&... value)
+void push_multiple(DoublyList<T>& list, ArgTypes&&... value)
 {
     (list.PushBack(value), ...);
 }
 
 int main()
 {
-    SinglyList<int> list{};
-    push_multiple(list, 1, 2, 3, 4, 5);
-    list.Print().ReverseWithStack().Print();
+    DoublyList<int> list{};
+    push_multiple(list, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    list.Print().Erase(3).Print().Print(EPrintMode::BACKWARD).Print();
 }
