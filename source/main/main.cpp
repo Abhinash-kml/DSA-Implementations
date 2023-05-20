@@ -8,6 +8,8 @@
 //#include "../Containers/SinglyList.hpp"
 #include "../Containers/DoublyList.hpp"
 
+#include "../Functional/function.hpp"
+
 #define NL "\n"
 
 using namespace std::string_literals;
@@ -61,9 +63,13 @@ void push_multiple(DoublyList<T>& list, ArgTypes&&... value)
     (list.PushBack(value), ...);
 }
 
+void testfunc(int a, int b, int c)
+{
+    std::cout << "Loda World" << NL;
+}
+
 int main()
 {
-    DoublyList<int> list{};
-    push_multiple(list, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-    list.Print().Erase(3).Print().Print(EPrintMode::BACKWARD).Print();
+    function<void(int, int, int)> func{ &testfunc };
+    func(10, 20, 30);
 }
