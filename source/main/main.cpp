@@ -70,6 +70,8 @@ void testfunc(int a, int b, int c)
 
 int main()
 {
-    function<void(int, int, int)> func{ &testfunc };
-    func(10, 20, 30);
+    delegate<void(int, int, int)> func{ [](int a, int b, int c) {
+        std::cout << "Lolo Lolo" << NL; 
+    } };
+    func(1, 2, 3);
 }
