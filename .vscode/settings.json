@@ -46,6 +46,19 @@
         "xstddef": "cpp",
         "xstring": "cpp",
         "xtr1common": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "*.ipp": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "string_view": "cpp",
+        "rope": "cpp",
+        "slist": "cpp",
+        "span": "cpp",
+        "regex": "cpp",
+        "bitset": "cpp",
+        "memory_resource": "cpp",
+        "ranges": "cpp"
     }
 }
