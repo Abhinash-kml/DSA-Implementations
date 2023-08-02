@@ -4,7 +4,7 @@
 #include <limits>
 
 template<typename T>
-class allocator final
+class allocator
 {
 public:
     using value_type = T;
@@ -14,37 +14,35 @@ public:
     using const_pointer = const T*;
     using reference = T&;
     using const_reference = const T&;
-    using this_type = allocator<T>;
 
     allocator() = default;
     ~allocator() = default;
 
-    pointer allocate(size_t amount)
-    { 
-        return static_cast<pointer>(::operator new(sizeof(T) * amount));
+    constexpr pointer allocate(size_t num)
+    {
+        return static_cast<pointer>(::operator new(sizeof(T) * num));
     }
 
-    void deallocate(pointer ptr, size_t amount)
+    constexpr void deallocate(pointer ptr, size_t size)
     {
-        ::operator delete(ptr);
-        ptr = nullptr;
+        ::operator delete(ptr, size);
     }
 
     template<typename U, typename... Args>
-    void construct(U* ptr, Args&&... args)
+    constexpr U* construct(U* ptr, Args&&... args)
     {
-        new (ptr) U(std::forward<Args>(args)...);
+        return new (ptr) U(std::forward<Args>(args)...);
     }
 
     template<typename U>
-    void destruct(U* ptr)
+    constexpr void destruct(U* ptr)
     {
         ptr->~U();
     }
 
-    size_t max_size() const
-    {
-        return std::numeric_limits<size_type>::max();
+    constexpr size_t max_size() 
+    { 
+        return std::numeric_limits<size_type>::max() / sizeof(T); 
     }
 
     template<typename U>
@@ -53,6 +51,6 @@ public:
         using other = allocator<U>;
     };
 
-private:
-
+    bool operator==(const allocator& other) { return true; }
+    bool operator!=(const allocator& other) { return !operator==(other); }
 };

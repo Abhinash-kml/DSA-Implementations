@@ -1,77 +1,24 @@
 #include <iosfwd>
+#include <iostream>
 
-#include "../Allocators/allocator.hpp"
+#include "..\Containers\stack.hpp"
+#include "..\Containers\vector.hpp"
+#include "..\Containers\fixedstack.hpp"
 
-#include "../Containers/vector.hpp"
-#include "../Types/string.hpp"
-#include "../Types/string_view.hpp"
-//#include "../Containers/SinglyList.hpp"
-#include "../Containers/DoublyList.hpp"
+#define NL '\n'
 
-#include "../Functional/function.hpp"
-
-#define NL "\n"
-
-using namespace std::string_literals;
-
-template<typename T, typename A>
-std::ostream& operator<<(std::ostream& out, const string<T, A>& str)
+int main(int argc, char** argv)
 {
-    for (size_t i = 0; i < str.size(); ++i)
-        out << str[i];
-    
-    return out;
-}
+    std::cout << "Hello World" << NL;
 
-std::ostream& operator<<(std::ostream& out, string_view& str)
-{
-    for (size_t i = 0; i < str.size(); ++i)
-        out << str[i];
-    
-    return out;
-}
+    fstack<int, 10> stack{};
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    stack.push(4);
+    stack.push(5);
 
-struct test {
-    test() = default;
-    test(int a, int b, int c, int d) 
-        : a{ a }
-        , b{ b }
-        , c{ c }
-        , d{ d }
-    { }
+    for (int i = 0; i < stack.size(); ++i)
+        std::cout << stack[i] << " ";
 
-    test(test&& o)
-        : a{ o.a }
-        , b{ o.b }
-        , c{ o.c }
-        , d{ o.d }
-    {
-        std::cout << "Moved" << NL;
-    }
-
-    int a, b, c, d;
-};
-
-auto print = [](string_view view) { std::cout << view << NL; };
-auto println = [](const char* str) { 
-    std::cout << str << '\n';
-};
-
-template<typename T, typename... ArgTypes>
-void push_multiple(DoublyList<T>& list, ArgTypes&&... value)
-{
-    (list.PushBack(value), ...);
-}
-
-void testfunc(int a, int b, int c)
-{
-    std::cout << "Loda World" << NL;
-}
-
-int main()
-{
-    delegate<void(int, int, int)> func{ [](int a, int b, int c) {
-        std::cout << "Lolo Lolo" << NL; 
-    } };
-    func(1, 2, 3);
 }
