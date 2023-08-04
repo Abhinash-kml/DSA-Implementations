@@ -242,3 +242,6 @@ private:
 // Deduction guides
 template<typename Iter>
 vector(Iter begin, Iter end) -> vector<typename std::iterator_traits<Iter>::value_type>;
+
+template<typename T, typename... U>
+vector(T, U...) -> vector<T>;

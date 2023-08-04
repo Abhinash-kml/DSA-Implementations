@@ -67,8 +67,20 @@ public:
     { 
         return m_elements[m_front];
     }
-    reference front() { }
-    reference back() { }
+    pointer front() 
+    {
+        if (!empty())
+        return &m_elements[m_front];
+
+        return nullptr;
+    }
+    pointer back() 
+    {
+        if (!empty())
+        return &m_elements[m_back];
+
+        return nullptr;
+    }
 
     pointer begin() { return &m_elements[m_front]; }
     const_pointer begin() const { return &m_elements[m_front]; }

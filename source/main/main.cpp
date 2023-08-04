@@ -5,27 +5,31 @@
 #include "..\Containers\vector.hpp"
 #include "..\Containers\fixedstack.hpp"
 #include "..\Containers\fixedqueue.hpp"
+#include "..\Containers\SinglyList.hpp"
+#include "..\Containers\llstack.hpp"
+#include "..\Containers\llqueue.hpp"
+#include "..\Containers\array.hpp"
 
 #define NL '\n'
+
+consteval int mul(const int& a, const int& b)
+{
+    return a * b;
+}
 
 int main(int argc, char** argv)
 {
     std::cout << "Hello World" << NL;
 
-    fqueue<int, 3> aa{};
-    aa.enqueue(1);
-    aa.enqueue(2);
-    aa.enqueue(3);
-    std::cout << std::boolalpha << aa.empty() << std::noboolalpha << aa.count() << std::boolalpha << aa.full() << NL;
-
-    for (auto it = aa.begin(); it != aa.end(); ++it)
+    array arr = {1, 2, 3, 4, 5};
+    for (auto it = arr.begin(); it != arr.end(); ++it)
         std::cout << *it << " ";
+    
     std::cout << NL;
+    
+    vector vec = {1, 2, 3, 4, 5, 6, 7};
+    for (auto it = vec.begin(); it != vec.end(); ++it)
+        std::cout << *it << " ";
 
-    aa.enqueue(4);
-    aa.dequeue();
-    aa.dequeue();
-    aa.dequeue();
-    aa.dequeue();
-
+    mul(100, 200);
 }
