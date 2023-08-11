@@ -15,8 +15,14 @@
 
 #include "..\Types\pair.hpp"
 #include "..\Types\string.hpp"
+#include "..\Types\delegate.hpp"
 
 #define NL '\n'
+
+void Print(const char* str)
+{
+    std::cout << str << '\n';
+}
 
 struct test
 {
@@ -27,11 +33,30 @@ struct test
     void print() { std::cout << "LOLOLOLO" << NL; }
 };
 
+class entity
+{
+public:
+    void printnc()
+    {
+        std::cout << "Ptr to Mem Func" << NL;
+    }
+
+    void print() const
+    {
+        std::cout << "Ptr to Const Mem Func" << NL;
+    }
+};
+
 int main(int argc, char** argv)
 {
     std::cout << "Hello World" << NL;
+    delegate<void(const char*)> function;
+    function.Bind(&Print);
+    function("Lolda lele tu");
 
-    string<> str = "Lolwa hai Lolwa";
-    std::cout << str;
+    entity tetris;
+    delegate<void()> function2;
+    function2.Bind(tetris, &entity::print);
+    function2();
 
 }
