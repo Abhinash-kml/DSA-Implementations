@@ -1,10 +1,22 @@
 #pragma once
 
+#include <string>
 #include <memory>
+#include <utility>
 #include <cassert>
 
-#include "./string.hpp"
-#include "../Allocators/allocator.hpp"
+size_t strlen(const char* str)
+{
+    size_t size = 0;
+
+    while (*str != '\n')
+    {
+        size++;
+        str++;
+    }
+
+    return size;
+}
 
 class string_view final
 {
@@ -19,68 +31,63 @@ public:
 
     string_view() = default;
 
-    template<typename T, typename A>
-    string_view(const string<T, A>& other)
-        : m_internal{ other.get() }
-        , m_size{ other.size() }
-    { }
+    string_view(const std::string& str)
+        : m_ptr(str.c_str())
+        , m_size(str.size())
+    {}
 
     string_view(const char* str)
-        : m_internal{ const_cast<char*>(str) }
-        , m_size{ strlen(str) }
-    { }
+        : m_ptr(str)
+        , m_size(strlen(str))
+    {}
 
-    template<size_t N>
-    string_view(const char (&str)[N])
-        : m_internal{ str }
-        , m_size{ N }
-    { }
-
-    string_view(const string_view& other)
-        : m_internal{ other.m_internal }
-    { }
-
-    string_view& operator=(const string_view& other)
-    {
-        if (&other == this) return *this;
-
-        m_internal = other.m_internal;
-
-        return *this;
-    }
+    string_view(const string_view& str) = default;
+    string_view& operator=(const string_view& other) = default;
 
     string_view(string_view&& other)
-        : m_internal{ other.m_internal }
-    {
-        other.m_internal = nullptr;
-    }
+        : m_ptr(std::move(other.m_ptr))
+        , m_size(std::move(other.m_size))
+    {}
 
     string_view& operator=(string_view&& other)
     {
         if (&other == this) return *this;
 
-        m_internal = other.m_internal;
-        other.m_internal = nullptr;
-
-        return *this;
+        m_ptr = std::exchange(other.m_ptr, nullptr);
+        m_size = std::exchange(other.m_size, 0);
     }
 
     ~string_view()
     {
-        m_internal = nullptr;
+        if (m_ptr) m_ptr = nullptr;
+        m_size = 0;
     }
 
 public:
-
     const_reference operator[](size_t index) const
     {
         assert(index >= 0 && index < m_size);
-        return m_internal[index];
+        return m_ptr[index];
     }
+
+    const_reference at(size_t index) const
+    {
+        assert(index >= 0 && index < m_size);
+        return m_ptr[index];
+    }
+
+    const_reference front() const { return m_ptr[0]; }
+    const_reference back() const { return m_ptr[m_size]; }
 
     size_t size() const { return m_size; }
 
+    const_pointer begin() const { return &m_ptr[0]; }
+    const_pointer cbegin() const { return &m_ptr[0]; }
+
+    const_pointer end() const { return &m_ptr[m_size]; }
+    const_pointer cend() const { return &m_ptr[m_size]; }
+
 private:
-    pointer m_internal{ nullptr };
-    size_t m_size{ 0 };
+    const char* m_ptr{nullptr};
+    size_t m_size{0};
 };

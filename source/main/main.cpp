@@ -13,6 +13,9 @@
 #include "..\SmartPointers\unique_ptr.hpp"
 #include "..\SmartPointers\shared_ptr.hpp"
 
+#include "..\Types\pair.hpp"
+#include "..\Types\string.hpp"
+
 #define NL '\n'
 
 struct test
@@ -28,10 +31,7 @@ int main(int argc, char** argv)
 {
     std::cout << "Hello World" << NL;
 
-    shared_ptr<int> ptr;
-    {
-        shared_ptr<int> ptr2(new int(100));
-        ptr = ptr2;
-    }
+    string<> str = "Lolwa hai Lolwa";
+    std::cout << str;
 
 }

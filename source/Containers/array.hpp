@@ -45,3 +45,10 @@ struct array final
 // Deduction guide for CTAD
 template<typename T, typename... U>
 array(T, U...) -> array<std::enable_if_t<(std::is_same_v<T, U> && ...), T>, sizeof...(U) + 1>;
+
+// Helper functions
+template<typename T, typename... Args>
+array make_array(const T& a, Args&&... args)
+{
+    return array{a, std::forward<Args>(args)...};
+}
