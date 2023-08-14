@@ -10,6 +10,7 @@
 // #include "..\Containers\llqueue.hpp"
 // #include "..\Containers\array.hpp"
 #include "..\Containers\queue.hpp"
+#include "..\Containers\priority_queue.hpp"
 
 
 // #include "..\SmartPointers\unique_ptr.hpp"
@@ -65,4 +66,17 @@ int main(int argc, char** argv)
     function2.Bind(tetris, &entity::print);
     function2();
 
+    priority_queue<int, 10> p;
+    p.enqueue(10, 50);
+    p.enqueue(20, 40);
+    p.enqueue(30, 300);
+    p.enqueue(40, 20);
+    p.enqueue(50, 10);
+    
+
+    for (size_t i = 0; i < 5; ++i)
+    {
+        const auto& object = p.dequeue();
+        std::cout << object.value << " | " << object.priority << NL;
+    }
 }
