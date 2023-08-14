@@ -147,6 +147,22 @@ public:
         relocate(amount);
     }
 
+    void erase(pointer index)
+    {
+        assert(index >= begin());
+        assert(index < end());
+
+        index->~T();
+
+        while (index != end() - 1)
+        {
+            *index = std::move(*(index + 1));
+            index++;
+        }
+
+        pop_back();
+    }
+
     void clear()
     {
         if (empty()) return;

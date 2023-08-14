@@ -68,7 +68,9 @@ public:
             if (--(*m_count) == 0)
             {
                 delete m_ptr;
+                delete m_count;
                 m_ptr = nullptr;
+                m_count = nullptr;
             }
             else
             {

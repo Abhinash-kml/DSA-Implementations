@@ -2,19 +2,21 @@
 #include <iostream>
 
 // #include "..\Containers\stack.hpp"
-// #include "..\Containers\vector.hpp"
+#include "..\Containers\vector.hpp"
 // #include "..\Containers\fixedstack.hpp"
 // #include "..\Containers\fixedqueue.hpp"
 // #include "..\Containers\SinglyList.hpp"
 // #include "..\Containers\llstack.hpp"
 // #include "..\Containers\llqueue.hpp"
 // #include "..\Containers\array.hpp"
+#include "..\Containers\queue.hpp"
 
-#include "..\SmartPointers\unique_ptr.hpp"
-#include "..\SmartPointers\shared_ptr.hpp"
 
-#include "..\Types\pair.hpp"
-#include "..\Types\string.hpp"
+// #include "..\SmartPointers\unique_ptr.hpp"
+// #include "..\SmartPointers\shared_ptr.hpp"
+
+// #include "..\Types\pair.hpp"
+// #include "..\Types\string.hpp"
 #include "..\Types\delegate.hpp"
 
 #define NL '\n'
@@ -36,6 +38,8 @@ struct test
 class entity
 {
 public:
+    entity() = default;
+
     void printnc()
     {
         std::cout << "Ptr to Mem Func" << NL;
@@ -45,6 +49,8 @@ public:
     {
         std::cout << "Ptr to Const Mem Func" << NL;
     }
+
+    ~entity() { std::cout << "Destroyed" << NL; }
 };
 
 int main(int argc, char** argv)
