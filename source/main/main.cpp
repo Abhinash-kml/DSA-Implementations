@@ -9,9 +9,9 @@
 // #include "..\Containers\llstack.hpp"
 // #include "..\Containers\llqueue.hpp"
 // #include "..\Containers\array.hpp"
-#include "..\Containers\queue.hpp"
-#include "..\Containers\priority_queue.hpp"
-
+// #include "..\Containers\queue.hpp"
+// #include "..\Containers\priority_queue.hpp"
+#include "..\Containers\dequeue.hpp"
 
 // #include "..\SmartPointers\unique_ptr.hpp"
 // #include "..\SmartPointers\shared_ptr.hpp"
@@ -66,17 +66,19 @@ int main(int argc, char** argv)
     function2.Bind(tetris, &entity::print);
     function2();
 
-    priority_queue<int, 10> p;
-    p.enqueue(10, 50);
-    p.enqueue(20, 40);
-    p.enqueue(30, 300);
-    p.enqueue(40, 20);
-    p.enqueue(50, 10);
-    
+    dequeue<int, 10> d;
+    d.push_front(1);
+    d.push_front(2);
+    d.push_front(3);
+    d.push_front(4);
+    d.push_back(6);
+    d.push_back(7);
+    d.push_back(8);
 
-    for (size_t i = 0; i < 5; ++i)
-    {
-        const auto& object = p.dequeue();
-        std::cout << object.value << " | " << object.priority << NL;
-    }
+    d.print();
+    d.remove_front();
+    d.remove_back();
+    d.print();
+
+    std::cout << d.getfront() << " | " << d.getback() << NL;
 }
