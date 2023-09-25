@@ -11,7 +11,8 @@
 // #include "..\Containers\array.hpp"
 // #include "..\Containers\queue.hpp"
 // #include "..\Containers\priority_queue.hpp"
-#include "..\Containers\dequeue.hpp"
+// #include "..\Containers\dequeue.hpp"
+#include "..\Containers\hashtable.hpp"
 
 // #include "..\SmartPointers\unique_ptr.hpp"
 // #include "..\SmartPointers\shared_ptr.hpp"
@@ -66,19 +67,12 @@ int main(int argc, char** argv)
     function2.Bind(tetris, &entity::print);
     function2();
 
-    dequeue<int, 10> d;
-    d.push_front(1);
-    d.push_front(2);
-    d.push_front(3);
-    d.push_front(4);
-    d.push_back(6);
-    d.push_back(7);
-    d.push_back(8);
+    HashTable<int, const char*> map(5);
+    map.insert(1, "Awinash");
+    map.insert(2, "komal");
+    map.insert(3, "Bikki");
+    map.insert(4, "Puspa");
+    map.insert(5, "Basanta");
 
-    d.print();
-    d.remove_front();
-    d.remove_back();
-    d.print();
-
-    std::cout << d.getfront() << " | " << d.getback() << NL;
+    std::cout << *map.get(1) << NL;
 }

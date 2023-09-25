@@ -103,12 +103,12 @@ public:
 
     reference getfront()
     {
-        if (!isempty()) return arr[m_headstart];
+        if (!isempty()) return arr[m_head];
     }
 
     reference getback()
     {
-        if (!isempty()) return arr[N - 1];
+        if (!isempty()) return arr[m_tail];
     }
 
     void print()
